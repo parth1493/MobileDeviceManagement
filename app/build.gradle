@@ -1,0 +1,100 @@
+import dependencies.AnnotationProcessing
+import dependencies.Square
+import dependencies.UnitTest
+import dependencies.Versions
+import dependencies.AndroidX
+import dependencies.Google
+import dependencies.Glide
+import dependencies.Timber
+
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'de.mannodermaus.android-junit5'
+}
+
+android {
+    compileSdk Versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.parthdesai.mobiledevicemanagement"
+        minSdk Versions.minSdk
+        targetSdk Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = Versions.jvmTarget
+        noStdlib = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.kotlin_compiler_extension
+    }
+    buildFeatures {
+        compose true
+    }
+
+    kapt {
+        correctErrorTypes = true
+    }
+}
+
+dependencies {
+
+    implementation AndroidX.core_ktx
+    implementation AndroidX.app_compat
+    implementation AndroidX.constraint_layout
+    implementation AndroidX.compose_ui
+    implementation AndroidX.compose_foundation
+    implementation AndroidX.compose_material
+    implementation AndroidX.compose_icons_core
+    implementation AndroidX.compose_icons_extended
+    implementation AndroidX.navigation_compose
+    implementation AndroidX.compose_activity
+    implementation AndroidX.navigation_compose_hilt
+    implementation AndroidX.room_runtime
+    implementation AndroidX.room_ktx
+
+    implementation Google.material
+    implementation Google.hilt_android
+
+
+    implementation Square.retrofit
+    implementation Square.retrofit_gson
+    implementation Square.leak_canary
+
+    kapt AnnotationProcessing.hilt_compiler
+    kapt AnnotationProcessing.room_compiler
+
+//    // TESTING
+    testImplementation UnitTest.jupiter_api
+    testRuntimeOnly UnitTest.jupiter_engine
+
+//    // Mock web server
+    testImplementation UnitTest.mock_web_server
+
+    //timber
+    implementation Timber.timber
+
+    //Glide
+    implementation Glide.glide
+    kapt Glide.glide_compiler
+
+}
