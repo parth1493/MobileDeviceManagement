@@ -15,7 +15,7 @@ interface DeviceDao {
     @Query("DELETE FROM devices")
     suspend fun deleteAllDevices()
 
-    @Query(""" SELECT * FROM devices WHERE title LIKE '%' || :query || '%' """)
+    @Query("SELECT * FROM devices WHERE title LIKE '%' || :query || '%' ")
     suspend fun searchDevices(
         query: String
     ): List<DeviceEntity>
